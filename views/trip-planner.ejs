@@ -1,0 +1,37 @@
+<% layout('/layout/boilerplate') -%>
+
+<div class="container mt-4">
+  <h2>AI Trip Planner</h2>
+  <form action="/generate-trip" method="POST">
+    <div class="mb-3">
+      <label>Destination</label>
+      <input type="text" name="destination" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Budget</label>
+      <input type="text" name="budget" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Number of Days</label>
+      <input type="number" name="days" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label>Category</label>
+      <select name="category" class="form-control" required>
+  <option value="city">City</option>
+  <option value="romantic">Romantic</option>
+  <option value="beach">Beach</option>
+  <option value="mountain">Mountain</option>
+  <option value="adventure">Adventure</option>
+  <option value="historical">Historical</option>
+  <option value="cultural">Cultural</option>
+  <option value="religious">Religious</option>
+  <option value="wildlife">Wildlife</option>
+  <option value="luxury">Luxury</option>
+  <option value="nature">Nature</option>
+</select>
+
+    </div>
+    <button type="submit" class="btn btn-primary">Generate</button>
+  </form>
+</div>

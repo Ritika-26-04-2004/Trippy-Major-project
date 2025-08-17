@@ -1,0 +1,161 @@
+/* *{
+    background-color: whitesmoke;
+} */
+.fa-mountain-city {
+    color: brown;
+    font-size: 2rem;
+}
+.navbar{
+    height: 5rem;
+    background-color: white;
+}
+.nav-link{
+    color: #222222 !important;
+}
+.f-info {
+    text-align: center;
+    height: 7rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+    width: 100%;
+}
+
+.f-info-links, .f-info-socials, .f-info-brand {
+    width: 100%;;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info-socials i {
+    margin-right: 1rem;
+    font-size: 1.3rem;
+}
+
+.f-info-links a , .f-info-socials a {
+    text-decoration: none;
+    color: #222222;
+    gap: 1rem;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+    color: cadetblue;
+}
+
+.f-info-socials i:hover {
+    color: cadetblue;
+}
+
+/*card*/
+.container .card{
+   border:none;
+    margin-bottom: 2rem;
+}
+.container .card-img-top{
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    
+}
+
+.container .card-body{
+    padding: 0% !important;
+}
+.container .card-text p {
+    font-weight: 400;
+    color: black;
+}
+.listing-link{
+    text-decoration: none;
+}
+
+.container .card-img-overlay{
+    opacity: 0;
+}
+.container .card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: #fff;
+}
+.row .add-btn{
+    background-color: #fe424d;
+    color: #fff;
+    border: none;
+    /* transform: 2s; */
+}
+.row .add-btn:hover{
+    background-color: #e93632;
+}
+.row {
+    padding : 2.5rem 0 2.5rem 0;
+    
+}
+
+.row .btn :hover {
+    background-color: #a49a9a;
+    
+}
+
+ .show-img {
+    height: 400px;
+    width: 300px;
+}
+
+.btns {
+    display: flex;
+    font: 100;
+     gap:  1rem;
+}
+/* Trip Planner Styles */
+.trip-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.trip-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  padding: 30px;
+  max-width: 800px;
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+}
+
+.trip-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 8px;
+}
+
+.trip-itinerary {
+  background: #f8faff;
+  border-left: 4px solid #3498db;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+  white-space: pre-wrap; /* Keeps formatting from itinerary */
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: #34495e;
+}
+
+.trip-itinerary p {
+  margin-bottom: 12px;
+}
+
+.trip-itinerary strong {
+  color: #2980b9;
+}

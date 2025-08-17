@@ -1,0 +1,60 @@
+<style>
+    /* Flash message styles */
+.custom-flash {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #f0f9ff;
+  color: #0369a1;
+  border: 1px solid #38bdf8;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  z-index: 9999;
+  animation: slideFade 4s ease-in-out forwards;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 250px;
+}
+
+.custom-flash.success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border-color: #10b981;
+}
+
+.custom-flash.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border-color: #ef4444;
+}
+
+@keyframes slideFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+</style>
+
+<!-- flash.ejs -->
+<% if (success && success.length) { %>
+  <div class="custom-flash success"><%= success %></div>
+<% } %>
+
+
+<% if (error && error.length) { %>
+  <div class="custom-flash error"><%= error %></div>
+<% } %>

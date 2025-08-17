@@ -1,0 +1,121 @@
+<% layout('/layout/boilerplate') -%>
+<style>
+/* Main container */
+.trip-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #fdfdfd;
+  border-radius: 18px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+}
+
+/* Trip card */
+.trip-card {
+  padding: 20px 25px;
+  background: linear-gradient(145deg, #ffffff, #f1f1f1);
+  border-radius: 15px;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.trip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+}
+
+/* Trip title */
+.trip-title {
+  font-size: 2.1em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #e74c3c; /* Red accent for luxury */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Itinerary content */
+.trip-itinerary {
+  line-height: 1.7;
+  font-size: 16px;
+  white-space: pre-wrap;
+  color: #34495e;
+}
+
+/* Day headings */
+.trip-itinerary h3, .trip-itinerary strong.day-title {
+  font-size: 1.4em;
+  color: #2c3e50;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #e74c3c;
+  display: inline-block;
+  padding-bottom: 3px;
+}
+
+/* Important items (hotels, restaurants, attractions) */
+.trip-itinerary strong.important {
+  color: #e74c3c;
+  font-weight: 600;
+  background: rgba(231,76,60,0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Budget highlights */
+.trip-itinerary span.budget {
+  font-weight: 700;
+  color: #27ae60;
+  background: rgba(39,174,96,0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Notes section */
+.trip-itinerary .notes {
+  font-style: italic;
+  color: #7f8c8d;
+  margin-top: 15px;
+  display: block;
+}
+
+/* Lists */
+.trip-itinerary ul {
+  margin: 10px 0 20px 20px;
+  list-style-type: disc;
+}
+
+/* Links or references */
+.trip-itinerary a {
+  color: #2980b9;
+  text-decoration: none;
+}
+.trip-itinerary a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .trip-container {
+    padding: 15px;
+    margin: 20px;
+  }
+  .trip-title {
+    font-size: 1.8em;
+  }
+  .trip-itinerary {
+    font-size: 15px;
+  }
+}
+</style>
+
+<div class="trip-container">
+  <div class="trip-card">
+    <h2 class="trip-title">Your Trip to <%= place.name %>, <%= place.country %></h2>
+    <div class="trip-itinerary">
+      <%= itinerary %>
+    </div>
+  </div>
+</div>

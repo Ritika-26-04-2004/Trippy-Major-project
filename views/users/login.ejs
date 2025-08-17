@@ -1,0 +1,33 @@
+<% layout('/layout/boilerplate') -%>
+
+<div class="row">
+    <h1 class="col-md-8 offset-md-2 offset-lg-2" >Login for cozyStay</h1>
+  <div class="col-md-8 offset-md-2 offset-lg-2">
+
+    <form action="/login" method="post" class="needs-validation" novalidate>
+<div class="mb-3">
+        <label for="username" class="form-label">username</label>
+        <input
+          type="text"
+          name="username"
+          class="form-control"
+         id="username"
+          required
+        />
+       
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">password</label>
+        <input
+          type="password"
+          name="password"
+          class="form-control"
+         id="password"
+          required
+        />
+        
+      </div>
+      <button class="btn btn-success">login</button>
+    </form>
+    </div>
+     </div>
