@@ -1,0 +1,168 @@
+<% layout("/layouts/boilerplate") -%>
+
+<!-- Page-specific CSS -->
+<link rel="stylesheet" href="/css/home.css">
+
+<div class="homepage-bg">
+
+  <!-- Hero Carousel Section -->
+  <section id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <% const heroImages = ["hero1.jpg", "hero2.jpg", "hero3.jpg", "hero4.jpg", "hero5.jpg"]; %>
+      <% heroImages.forEach((img, index) => { %>
+        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+          <div class="hero-slide" style="background-image: url('/images/<%= img %>');">
+            <div class="hero-caption text-center text-white">
+              <h1>Explore the whole world<br>and enjoy its beauty</h1>
+              <p>Find and write about your experiences around the world.</p>
+
+              <!-- Search Box -->
+              <div class="hero-search-box container mt-4">
+                <form action="/listings/search" method="POST" class="row g-2 search-bar align-items-end justify-content-center">
+
+                  <div class="col-md-2">
+                    <label class="form-label text-white">Country</label>
+                    <select name="country" class="form-select dropdown-transparent">
+                      <option selected disabled>Select Country</option>
+                      <option>USA</option>
+                      <option>UK</option>
+                      <option>France</option>
+                      <option>Japan</option>
+                      <option>India</option>
+                      <option>Australia</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-2">
+                    <label class="form-label text-white">Location</label>
+                    <input type="text" name="location" class="form-control bg-transparent text-white" placeholder="Where to?">
+                  </div>
+
+                  <div class="col-md-2">
+                    <label class="form-label text-white">Check-in</label>
+                    <input type="date" name="checkIn" class="form-control bg-transparent text-white date-white-icon">
+                  </div>
+
+                  <div class="col-md-2">
+                    <label class="form-label text-white">Check-out</label>
+                    <input type="date" name="checkOut" class="form-control bg-transparent text-white date-white-icon">
+                  </div>
+
+                  <div class="col-md-2">
+                    <label class="form-label text-white">Guests</label>
+                    <select name="guests" class="form-select dropdown-transparent">
+                      <option selected disabled>Select Guests</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                      <option>Family Package</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-2 d-grid">
+                    <label class="form-label invisible">Search</label>
+                    <button type="submit" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center">
+                      <i class="bi bi-search me-2"></i> Search
+                    </button>
+                  </div>
+
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </section>
+
+  <!-- Popular Places (non-clickable) -->
+  <section class="container my-5 popular-places text-center">
+    <h2 class="mb-4">Popular Places</h2>
+    <div id="popularPlacesCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <% const popularPlaces = [
+          { name: "Dubai", img: "img1.jpg" },
+          { name: "Bali", img: "img2.jpg" },
+          { name: "Paris", img: "img3.jpg" },
+          { name: "Greece", img: "img4.jpg" },
+          { name: "Switzerland", img: "img5.jpg" },
+          { name: "Maldives", img: "img6.jpg" },
+          { name: "Barcelona", img: "img7.jpg" },
+          { name: "Las Vegas", img: "img8.jpg" },
+          { name: "Tokyo", img: "img9.jpg" },
+          { name: "Goa", img: "img10.jpg" },
+          { name: "Agra", img: "img11.jpg" },
+          { name: "Darjeeling", img: "img12.jpg" },
+        ]; %>
+
+        <% for (let i = 0; i < popularPlaces.length; i += 4) { %>
+          <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+            <div class="row justify-content-center">
+              <% for (let j = i; j < i + 4 && j < popularPlaces.length; j++) { %>
+                <div class="col-6 col-md-3 mb-4">
+                  <div class="text-center place-card">
+                    <div class="place-img-wrapper mx-auto">
+                      <img src="/images/<%= popularPlaces[j].img %>" alt="<%= popularPlaces[j].name %>" loading="lazy">
+                    </div>
+                    <h5 class="place-title mt-3 text-white"><%= popularPlaces[j].name %></h5>
+                  </div>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </section>
+
+  <!-- Listings -->
+  <h2 class="text-center mb-4">Make Your Trip</h2>
+  <div class="listings-container row g-4">
+    <% if(allListings && allListings.length > 0) { %>
+      <% for(let listing of allListings) { %>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <a href="<%= currUser ? `/listings/${listing._id}` : '/login' %>" class="listing-card text-decoration-none">
+            <div class="card">
+              <img src="<%= listing.image?.url || '/images/placeholder.jpg' %>" class="card-img-top" alt="listing_img" loading="lazy">
+              <div class="card-body">
+                <p class="card-text">
+                  <b><%= listing.title %></b><br>
+                  &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "0" %> / night<br>
+                  <%= listing.location %>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% } %>
+    <% } else { %>
+      <p class="text-center">No listings available at the moment.</p>
+    <% } %>
+  </div>
+
+  <!-- Booking Section -->
+  <section class="container my-5">
+    <h3 class="text-center mb-4">Book Tickets and Go Now!</h3>
+    <div id="bookingCarousel" class="carousel slide booking-carousel" data-bs-ride="carousel">
+      <div class="carousel-inner rounded shadow">
+        <% const bookingImages = ["book1.jpg", "book2.jpg", "book3.jpg"]; %>
+        <% bookingImages.forEach((img, index) => { %>
+          <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+            <img src="/images/<%= img %>" class="d-block w-100" alt="Booking <%= index + 1 %>" loading="lazy">
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+</div>

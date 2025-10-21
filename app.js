@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -19,6 +18,11 @@ const flash = require("connect-flash");
 const userRouter = require("./routes/user.js");
 const { configDotenv } = require("dotenv");
 const tripPlannerRoutes = require("./routes/tripPlanner");
+const Stripe = require("stripe");
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const bookingRoutes = require("./routes/booking");
+const reviewRouter = require('./routes/reviews.js');
+
 
 //const MONGO_URL="mongodb://127.0.0.1:27017/cozyStay";
 const dbURL= process.env.Atlas_key;
@@ -33,13 +37,12 @@ async function main() {
     await mongoose.connect(dbURL);
 
 }
-
+app.engine('ejs', ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname,"views")));
-app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname,"/public")));
 
 const store = MongoStore.create({
@@ -83,6 +86,7 @@ app.use((req,res,next) => {
   next();
 })
 
+
 // app.get("/demouser", async (req,res) => {
 //   let fakeUser = new User({
 //     email: "barsha@gmail.com",
@@ -90,12 +94,27 @@ app.use((req,res,next) => {
 //   });
 //   let registeredUser = await User.register(fakeUser, "hello");
 // });
+const Listing = require('./models/listing.js');
+
+app.get("/", async (req, res) => {
+  try {
+    const allListings = await Listing.find({});
+    res.render("listings/home.ejs", { allListings });
+  } catch (e) {
+    console.log(e);
+    req.flash("error", "Cannot load listings");
+    res.render("listings/home.ejs", { allListings: [] });
+  }  
+});
 
 app.use("/listings",listingRouter);
 app.use("/",userRouter);
 
-app.use("/", tripPlannerRoutes);
+app.use("/ai", tripPlannerRoutes);
 
+app.use("/bookings", bookingRoutes); // Mount bookings router
+//Reviews routes
+app.use("/listings/:id/reviews", reviewRouter);
 
 
 

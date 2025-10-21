@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Book a Trip</title>
+  <style>
+    :root {
+      --primary-color: #28a745;
+      --primary-hover-color: #218838;
+      --discount-bg: #ffeb3b;
+      --discount-color: #d32f2f;
+      --border-color: #ccc;
+      --text-color: #333;
+      --background-light: #f9f9f9;
+      --padding-base: 20px;
+      --gap-base: 15px;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      color: var(--text-color);
+      line-height: 1.6;
+      background-color: var(--background-light);
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column; /* Stack vertically on small screens */
+      min-height: 100vh;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+    }
+
+    .form-box {
+      flex: 1;
+      padding: var(--padding-base);
+      max-width: 600px; /* Limit form width for better readability */
+      margin: 0 auto; /* Center the form */
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: calc(var(--padding-base) * 1.5);
+      font-size: 2em;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="date"],
+    select {
+      width: calc(100% - 22px); /* Account for padding and border */
+      padding: 12px;
+      margin-bottom: var(--gap-base);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-sizing: border-box; /* Include padding and border in element's total width and height */
+      font-size: 1em;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+    }
+
+    .inline-fields {
+      display: flex;
+      gap: var(--gap-base);
+      margin-bottom: var(--gap-base);
+    }
+
+    .inline-fields > div {
+      flex: 1;
+    }
+
+    .total {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin: var(--gap-base) 0 calc(var(--gap-base) * 2);
+      text-align: center;
+      padding: 10px;
+      background-color: var(--background-light);
+      border-radius: 8px;
+    }
+
+    .booking-button {
+      width: 100%;
+      padding: 15px;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .booking-button:hover {
+      background: var(--primary-hover-color);
+      transform: translateY(-2px);
+    }
+
+    .discount-tag {
+      background: var(--discount-bg);
+      color: var(--discount-color);
+      font-size: 0.8em;
+      font-weight: bold;
+      padding: 4px 8px;
+      border-radius: 12px;
+      margin-left: 8px;
+      display: inline-block;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .image-box {
+      flex: 1;
+      background: url('https://www.tripsavvy.com/thmb/pT_ZAje6cYUx8w2b4nsCk3FrxRU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/car-traveling-along-winding-road--maui--hawaii--america--usa-737142515-9d7096b173654472968075d805273c8f.jpg') no-repeat center/cover;
+      min-height: 250px; /* Minimum height for image on small screens */
+      border-radius: 0 0 8px 8px; /* Rounded corners for image on bottom */
+    }
+
+    /* Desktop styles */
+    @media (min-width: 768px) {
+      .container {
+        flex-direction: row; /* Side-by-side on larger screens */
+        border-radius: 8px;
+        overflow: hidden; /* Ensures rounded corners are visible */
+      }
+
+      .form-box {
+        padding: 40px;
+        flex: 1;
+      }
+
+      .image-box {
+        flex: 1;
+        min-height: auto; /* Reset min-height for desktop */
+        border-radius: 0 8px 8px 0; /* Rounded corners for image on right */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Left side booking form -->
+    <div class="form-box">
+      <h2>Book Your Adventure!</h2>
+      <form action="/listings/<%= listing._id %>/checkout" method="POST">
+        <label for="checkIn">Check-in</label>
+        <input type="date" id="checkIn" name="checkIn" required>
+
+        <label for="checkOut">Check-out</label>
+        <input type="date" id="checkOut" name="checkOut" required>
+
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required placeholder="John Doe">
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required placeholder="john.doe@example.com">
+
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" name="phone" required placeholder="+1 (555) 123-4567">
+
+        <div class="inline-fields">
+          <div>
+            <label for="adults">Adults</label>
+            <input type="number" id="adults" name="adults" value="1" min="1">
+          </div>
+          <div>
+            <label for="kids">
+              Kids <span class="discount-tag">10% OFF 🎉</span>
+            </label>
+            <input type="number" id="kids" name="kids" value="0" min="0">
+          </div>
+        </div>
+
+        <p class="total"><strong>Total: ₹<span id="total"><%= listing.price %></span></strong></p>
+
+        <button type="submit" class="booking-button">COMPLETE YOUR BOOKING</button>
+      </form>
+    </div>
+
+    <!-- Right side image -->
+    <div class="image-box"></div>
+  </div>
+
+  <script>
+    const pricePerPerson = Number("<%= listing.price %>");
+    const adultsInput = document.getElementById("adults");
+    const kidsInput = document.getElementById("kids");
+    const totalEl = document.getElementById("total");
+
+    function updateTotal() {
+      const adults = parseInt(adultsInput.value) || 0;
+      const kids = parseInt(kidsInput.value) || 0;
+
+      // 10% discount for kids
+      const adultTotal = adults * pricePerPerson;
+      const kidTotal = kids * (pricePerPerson * 0.9);
+
+      const total = adultTotal + kidTotal;
+      totalEl.textContent = total.toFixed(2); // show with 2 decimals
+    }
+
+    // Initial update when the page loads
+    document.addEventListener('DOMContentLoaded', updateTotal);
+
+    adultsInput.addEventListener("input", updateTotal);
+    kidsInput.addEventListener("input", updateTotal);
+  </script>
+</body>
+</html>

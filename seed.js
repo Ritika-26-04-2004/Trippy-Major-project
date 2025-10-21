@@ -80,7 +80,6 @@ const seedPlaces = [
   { name: "Banff National Park", country: "Canada", lat: 51.4968, lng: -115.9281, category: "nature" },
   { name: "Niagara Falls", country: "Canada", lat: 43.0962, lng: -79.0377, category: "nature" },
 
-  
 ];
 
 

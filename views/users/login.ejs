@@ -1,33 +1,28 @@
-<% layout('/layout/boilerplate') -%>
+<link rel="stylesheet" href="/css/log.css">
 
-<div class="row">
-    <h1 class="col-md-8 offset-md-2 offset-lg-2" >Login for cozyStay</h1>
-  <div class="col-md-8 offset-md-2 offset-lg-2">
-
-    <form action="/login" method="post" class="needs-validation" novalidate>
-<div class="mb-3">
-        <label for="username" class="form-label">username</label>
-        <input
-          type="text"
-          name="username"
-          class="form-control"
-         id="username"
-          required
-        />
-       
-      </div>
+<div class="login-page-container">
+  <div class="login-card">
+    <h1>Login</h1>
+    <form action="/login" method="POST" class="row g-3 needs-validation" novalidate>
       <div class="mb-3">
-        <label for="password" class="form-label">password</label>
-        <input
-          type="password"
-          name="password"
-          class="form-control"
-         id="password"
-          required
-        />
-        
+        <label for="username" class="form-label">Username</label>
+        <input name="username" id="username" placeholder="Enter username" type="text" class="form-control" required/>
+        <div class="invalid-feedback">Please enter username!</div>
       </div>
-      <button class="btn btn-success">login</button>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input name="password" id="password" placeholder="Enter password" type="password" class="form-control" required/>
+        <div class="invalid-feedback">Please enter password!</div>
+      </div>
+
+      <button class="btn btn-success w-100">Login</button>
     </form>
-    </div>
-     </div>
+
+    <!-- Link to register page -->
+    <p class="text-center mt-3">
+      Don't have an account? 
+      <a href="/signup" class="text-decoration-none">Create one</a>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<% layout('/layouts/boilerplate') %>
+<link rel="stylesheet" href="/css/style.css" />
+
+<div class="listings-container row g-4 mt-4">
+  <% if (!allListings || allListings.length === 0) { %>
+    <p class="text-center">No listings found matching your criteria.</p>
+  <% } else { %>
+    <% allListings.forEach(listing => { %>
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <% if (currUser) { %>
+          <a href="/listings/<%= listing._id %>" class="listing-card text-decoration-none">
+        <% } else { %>
+          <a href="/login" class="listing-card text-decoration-none">
+        <% } %>
+            <div class="card h-100">
+              <img src="<%= listing.image?.url || '/images/default.jpg' %>" class="card-img-top" alt="<%= listing.title %>">
+              <div class="card-body">
+                <% if (listing.avgRating && listing.avgRating > 0) { %>
+                  <div class="mb-2 text-warning">
+                    <% for (let i = 1; i <= 5; i++) { %>
+                      <i class="<%= i <= Math.floor(listing.avgRating) 
+                        ? 'fas fa-star' 
+                        : (i - listing.avgRating < 1 ? 'fas fa-star-half-alt' : 'far fa-star') %>"></i>
+                    <% } %>
+                    <small class="text-light">(<%= listing.avgRating.toFixed(1) %>)</small>
+                  </div>
+                <% } else { %>
+                  <div class="mb-2 text-muted">
+                    <small>No ratings yet</small>
+                  </div>
+                <% } %>
+
+                <h5 class="card-title"><%= listing.title %></h5>
+                <p class="card-text">
+                  <%= listing.location %>, <%= listing.country %><br>
+                  &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "0" %> / night
+                </p>
+                <a href="/listings/<%= listing._id %>" class="btn btn-primary">View</a>
+              </div>
+            </div>
+          </a>
+      </div>
+    <% }) %>
+  <% } %>
+</div>

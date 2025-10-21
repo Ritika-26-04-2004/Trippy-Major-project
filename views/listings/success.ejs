@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed! 🎉</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e0e5ec 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Hide overflow for popper animations */
+            color: #333;
+        }
+
+        .confirmation-container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInScale 0.8s forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes fadeInScale {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .checkmark-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: #28a745; /* Success green */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 0 0 10px rgba(40, 167, 69, 0.3);
+            position: relative;
+            animation: pulseShadow 1.5s infinite alternate;
+        }
+
+        @keyframes pulseShadow {
+            from {
+                box-shadow: 0 0 0 10px rgba(40, 167, 69, 0.3);
+            }
+            to {
+                box-shadow: 0 0 0 20px rgba(40, 167, 69, 0.1);
+            }
+        }
+
+        .checkmark {
+            width: 60px;
+            height: 30px;
+            border-bottom: 8px solid #fff;
+            border-left: 8px solid #fff;
+            transform: rotate(-45deg);
+            animation: drawCheck 0.6s ease-out forwards;
+            animation-delay: 1s; /* Delay checkmark drawing */
+            opacity: 0;
+        }
+
+        @keyframes drawCheck {
+            0% {
+                height: 0;
+                width: 0;
+                opacity: 0;
+            }
+            50% {
+                height: 0;
+                width: 60px;
+                opacity: 1;
+            }
+            100% {
+                height: 30px;
+                width: 60px;
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #28a745;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            animation: slideInUp 0.7s forwards;
+            animation-delay: 1.2s;
+            opacity: 0;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            animation: slideInUp 0.7s forwards;
+            animation-delay: 1.4s;
+            opacity: 0;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .btn-modern {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(0, 123, 255, 0.2);
+            animation: slideInUp 0.7s forwards;
+            animation-delay: 1.6s;
+            opacity: 0;
+        }
+
+        .btn-modern:hover {
+            background-color: #0056b3;
+            box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Party Popper Styles */
+        .popper-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicks to pass through */
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffc107; /* Yellow */
+            opacity: 0;
+            animation: fall 3s ease-out forwards;
+            animation-fill-mode: forwards;
+        }
+
+        .confetti:nth-child(2n) { background-color: #007bff; /* Blue */ }
+        .confetti:nth-child(3n) { background-color: #dc3545; /* Red */ }
+        .confetti:nth-child(4n) { background-color: #28a745; /* Green */ }
+        .confetti:nth-child(5n) { background-color: #6f42c1; /* Purple */ }
+        .confetti:nth-child(odd) { border-radius: 50%; } /* Some circular confetti */
+
+        @keyframes fall {
+            0% {
+                transform: translate(var(--startX), var(--startY)) rotateZ(0deg) scale(0);
+                opacity: 1;
+            }
+            10% {
+                transform: translate(var(--startX), var(--startY)) rotateZ(0deg) scale(1);
+            }
+            100% {
+                transform: translate(var(--endX), var(--endY)) rotateZ(var(--rotation)) scale(0.8);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="popper-container" id="popperContainer"></div>
+
+    <div class="confirmation-container">
+        <div class="checkmark-circle">
+            <div class="checkmark"></div>
+        </div>
+        <h1>Booking Confirmed!</h1>
+        <p>Your payment was successful and your booking has been secured. Get ready for an amazing experience!</p>
+        <a href="/listings" class="btn-modern">Explore More Listings</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const popperContainer = document.getElementById('popperContainer');
+            const numberOfConfetti = 100; // Number of confetti pieces
+
+            function createConfetti() {
+                for (let i = 0; i < numberOfConfetti; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+
+                    const startX = Math.random() * window.innerWidth - (window.innerWidth / 2) + 'px';
+                    const startY = Math.random() * window.innerHeight * 0.2 + 'px'; // Start from top 20%
+                    const endX = (Math.random() - 0.5) * window.innerWidth * 1.5 + 'px'; // Wider spread
+                    const endY = window.innerHeight * 1.2 + 'px'; // Fall off screen
+                    const rotation = Math.random() * 720 + 'deg'; // Spin
+
+                    confetti.style.setProperty('--startX', startX);
+                    confetti.style.setProperty('--startY', startY);
+                    confetti.style.setProperty('--endX', endX);
+                    confetti.style.setProperty('--endY', endY);
+                    confetti.style.setProperty('--rotation', rotation);
+                    confetti.style.animationDelay = `${Math.random() * 2}s`; // Stagger animation
+                    confetti.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+                    confetti.style.top = `-${Math.random() * 20}vh`; // Start slightly above viewport
+
+                    popperContainer.appendChild(confetti);
+
+                    // Remove confetti after animation to prevent DOM bloat
+                    confetti.addEventListener('animationend', () => {
+                        confetti.remove();
+                    });
+                }
+            }
+
+            // Trigger confetti after the main animation starts
+            setTimeout(createConfetti, 1000); // Adjust delay as needed
+        });
+    </script>
+</body>
+</html>
