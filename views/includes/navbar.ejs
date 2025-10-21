@@ -1,30 +1,37 @@
-<nav class="navbar navbar-expand-md sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-solid fa-plane-departure"></i></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link-head navbar-brand fw-bold" href="/listings">Trippy</a>
-      </div>
+<nav class="navbar">
+  <div class="navbar-container">
+    <!-- Logo in top-left corner -->
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-solid fa-plane-departure"></i> Trippy
+    </a>
 
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="/listings">Explore</a>
-        <a class="nav-link" href="/listings/new">Add new Trips</a>
-        <a class="nav-link" href="/ai">AI Trip Planner</a>
+    <!-- Hamburger toggle button for mobile -->
+    <button class="navbar-toggle" id="navbarToggle">&#9776;</button>
 
-        <% if(!currUser) { %>
-        <a class="nav-link" href="/signup"><b>Sign Up</b></a>
-        <a class="nav-link" href="/login"><b>Log in</b></a>
-        <% } %>
+    <!-- Navbar links -->
+    <div class="navbar-links" id="navbarLinks">
+      <a class="nav-link" href="/">Home</a>
+      <a class="nav-link" href="/listings">Explore</a>
+      <a class="nav-link" href="/listings/new">Add new Trips</a>
+      <a class="nav-link" href="/ai">AI Trip Planner</a>
 
-        <% if(currUser) { %>
-        <a class="nav-link" href="/listings/my-bookings#">Manage Booking</a>
-        <a class="nav-link" href="/logout"><b>Log Out</b></a>
-        <% } %>
-      </div>
+      <% if(!currUser) { %>
+      <a class="nav-link" href="/signup">Sign Up</a>
+      <a class="nav-link" href="/login">Log in</a>
+      <% } %>
+
+      <% if(currUser) { %>
+      <a class="nav-link" href="/listings/my-bookings#">Manage Booking</a>
+      <a class="nav-link" href="/logout">Log Out</a>
+      <% } %>
     </div>
   </div>
 </nav>
+<script>
+  const toggleButton = document.getElementById('navbarToggle');
+  const navbarLinks = document.getElementById('navbarLinks');
+
+  toggleButton.addEventListener('click', () => {
+    navbarLinks.classList.toggle('active');
+  });
+</script>
