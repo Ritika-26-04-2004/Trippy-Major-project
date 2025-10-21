@@ -1,13 +1,16 @@
+/* Navbar Base */
 .navbar {
     height: 5rem;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7); /* darker for readability */
     backdrop-filter: blur(10px);
     z-index: 1030;
     padding: 0 2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
+/* Brand */
 .navbar-brand {
-    color: black !important;
+    color: white !important;
     font-size: 2rem;
     font-weight: bold;
     display: flex;
@@ -21,20 +24,31 @@
     text-decoration: none;
 }
 
-.nav-link, .nav-link-head {
-    color: black !important;
+/* Links */
+.nav-link,
+.nav-link-head {
+    color: white !important;
     margin: 0 0.5rem;
     position: relative;
     transition: all 0.3s ease;
 }
 
-.nav-link:hover, .nav-link-head:hover {
+.nav-link:hover,
+.nav-link-head:hover {
     color: #00ffff !important;
     transform: scale(1.05);
     text-decoration: none;
 }
 
-.nav-link::after, .nav-link-head::after {
+/* Active link */
+.nav-link.active {
+    color: #00ffff !important;
+    font-weight: 600;
+}
+
+/* Underline on hover */
+.nav-link::after,
+.nav-link-head::after {
     content: '';
     display: block;
     height: 2px;
@@ -46,28 +60,33 @@
     left: 0;
 }
 
-.nav-link:hover::after, .nav-link-head:hover::after {
+.nav-link:hover::after,
+.nav-link-head:hover::after {
     width: 100%;
 }
 
+/* Hamburger / Toggle */
 .navbar-toggler {
     border: none;
 }
 
 .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-.nav-link.active {
-    color: #00ffff !important;
-    font-weight: 600;
-}
-
+/* Mobile Styles */
 @media (max-width: 768px) {
     .navbar {
         padding: 0 1rem;
+        background-color: rgba(0, 0, 0, 0.8);
     }
-    .nav-link, .nav-link-head {
+    .nav-link,
+    .nav-link-head {
         margin: 0.5rem 0;
+        font-size: 1.1rem;
+        text-align: center;
+    }
+    .navbar-nav.ms-auto {
+        text-align: center;
     }
 }
