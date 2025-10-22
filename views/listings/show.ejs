@@ -25,12 +25,12 @@
         <p class="price">&#8377; <%= listing.price.toLocaleString("en-IN") %> / night</p>
         <p><%= listing.description %></p>
         <p><%= listing.location %>, <%= listing.country %></p>
+        <a href="/listings/<%=listing._id%>/book" class="btn btn-success" >BOOK NOW </a>
       </div>
-
+      
       <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
         <div class="btns">
           <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">Edit</a>
-           <a href="/listings/<%=listing._id%>/book" class="btn btn-success" >BOOK NOW </a>
           <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
             <button class="btn btn-dark">Delete</button>
           </form>

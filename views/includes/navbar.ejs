@@ -1,37 +1,44 @@
+<link rel="stylesheet" href="navbar.css">
 <nav class="navbar">
   <div class="navbar-container">
-    <!-- Logo in top-left corner -->
-    <a class="navbar-brand" href="/listings">
-      <i class="fa-solid fa-plane-departure"></i> Trippy
+    <!-- Logo on the left -->
+    <a href="/listings" class="navbar-logo">
+      <i class="fa-solid fa-plane-departure"></i>
+      <span>Trippy</span>
     </a>
 
-    <!-- Hamburger toggle button for mobile -->
-    <button class="navbar-toggle" id="navbarToggle">&#9776;</button>
+    <!-- Hamburger Menu for Mobile -->
+    <button class="navbar-toggler" id="navbarToggle">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
 
-    <!-- Navbar links -->
+    <!-- Navbar Links -->
     <div class="navbar-links" id="navbarLinks">
       <a class="nav-link" href="/">Home</a>
       <a class="nav-link" href="/listings">Explore</a>
-      <a class="nav-link" href="/listings/new">Add new Trips</a>
+      <a class="nav-link" href="/listings/new">Add Trips</a>
       <a class="nav-link" href="/ai">AI Trip Planner</a>
 
-      <% if(!currUser) { %>
-      <a class="nav-link" href="/signup">Sign Up</a>
-      <a class="nav-link" href="/login">Log in</a>
+      <% if (!currUser) { %>
+        <a class="nav-link" href="/signup">Sign Up</a>
+        <a class="nav-link" href="/login">Log In</a>
       <% } %>
 
-      <% if(currUser) { %>
-      <a class="nav-link" href="/listings/my-bookings#">Manage Booking</a>
-      <a class="nav-link" href="/logout">Log Out</a>
+      <% if (currUser) { %>
+        <a class="nav-link" href="/listings/my-bookings">Manage Booking</a>
+        <a class="nav-link" href="/logout">Log Out</a>
       <% } %>
     </div>
   </div>
 </nav>
-<script>
-  const toggleButton = document.getElementById('navbarToggle');
-  const navbarLinks = document.getElementById('navbarLinks');
 
-  toggleButton.addEventListener('click', () => {
-    navbarLinks.classList.toggle('active');
+<script>
+  const toggle = document.getElementById('navbarToggle');
+  const links = document.getElementById('navbarLinks');
+  toggle.addEventListener('click', () => {
+    links.classList.toggle('active');
+    toggle.classList.toggle('open');
   });
 </script>
