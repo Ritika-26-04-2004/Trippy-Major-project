@@ -5,8 +5,9 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const axios = require("axios");
 const Place = require('../models/place');
 
-// ✅ Initialize Gemini & API Keys
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || process.env.API_KEY);
+const GEMINI_KEY = process.env.GEMINI_API_KEY || process.env.API_KEY;
+const GEMINI_MODEL = process.env.GEMINI_MODEL || "models/gemini-3.5-flash";
+const genAI = GEMINI_KEY ? new GoogleGenerativeAI(GEMINI_KEY) : null;
 const UNSPLASH_KEY = process.env.UNSPLASH_ACCESS_KEY;
 const WEATHER_KEY = process.env.WEATHER_API_KEY;
 
@@ -152,8 +153,13 @@ Return ONLY valid JSON (no explanations). Format:
   ]
 }`;
 
+    if (!genAI) {
+      req.flash('error', 'Missing Gemini API key. Set GEMINI_API_KEY or API_KEY and restart the app.');
+      return res.redirect('/ai');
+    }
+
     // Generate content
-    const model = genAI.getGenerativeModel({ model: "models/gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: GEMINI_MODEL });
     const result = await model.generateContent(prompt);
     let geminiResponseText = result.response.text().trim();
 
@@ -183,7 +189,11 @@ Return ONLY valid JSON (no explanations). Format:
 
   } catch (err) {
     console.error("Trip generation error:", err);
-    req.flash('error', 'Failed to generate trip plan. Please try again.');
+    const quotaError = err.status === 429 || /Quota exceeded|Too Many Requests|rate-limit/i.test(err.message);
+    const message = quotaError
+      ? 'AI service quota exceeded. Check your Gemini API quota/billing or switch to a valid model/key.'
+      : 'Failed to generate trip plan. Please try again.';
+    req.flash('error', message);
     res.redirect('/ai');
   }
 });
